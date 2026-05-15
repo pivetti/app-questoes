@@ -34,7 +34,7 @@ export default async function QuestionsPage({ searchParams }: QuestionsPageProps
         select: { answers: true },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
   });
 
   return (

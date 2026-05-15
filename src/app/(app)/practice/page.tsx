@@ -31,7 +31,7 @@ export default async function PracticePage({ searchParams }: PracticePageProps) 
         },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
     take: 20,
   });
 

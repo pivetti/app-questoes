@@ -2,7 +2,15 @@ import "server-only";
 
 import { prisma } from "@/lib/prisma";
 
-export async function getQuestionFilters() {
+type QuestionFilters = {
+  disciplines: string[];
+  subjects: string[];
+  boards: string[];
+};
+
+const uniqueStrings = (values: string[]) => Array.from(new Set<string>(values));
+
+export async function getQuestionFilters(): Promise<QuestionFilters> {
   const questions = await prisma.question.findMany({
     select: {
       discipline: true,
@@ -13,9 +21,9 @@ export async function getQuestionFilters() {
   });
 
   return {
-    disciplines: [...new Set(questions.map((question) => question.discipline))],
-    subjects: [...new Set(questions.map((question) => question.subject))],
-    boards: [...new Set(questions.map((question) => question.board))],
+    disciplines: uniqueStrings(questions.map((question) => question.discipline)),
+    subjects: uniqueStrings(questions.map((question) => question.subject)),
+    boards: uniqueStrings(questions.map((question) => question.board)),
   };
 }
 

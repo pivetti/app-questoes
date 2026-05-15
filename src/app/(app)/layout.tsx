@@ -5,6 +5,7 @@ import { requireUser } from "@/lib/session";
 
 const navItems = [
   { href: "/dashboard", label: "Desempenho" },
+  { href: "/contents", label: "Conteudos" },
   { href: "/practice", label: "Responder" },
   { href: "/questions", label: "Questoes" },
   { href: "/review", label: "Erradas" },
