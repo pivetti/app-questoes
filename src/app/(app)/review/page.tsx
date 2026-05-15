@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { PracticeQuestion } from "@/components/practice-question";
+import type { PracticeQuestionData } from "@/components/practice-question";
 import { prisma } from "@/lib/prisma";
 import { requireUser } from "@/lib/session";
 
+type WrongAnswerWithQuestion = {
+  question: PracticeQuestionData;
+};
+
 export default async function ReviewPage() {
   const user = await requireUser();
-  const wrongAnswers = await prisma.userAnswer.findMany({
+  const wrongAnswers: WrongAnswerWithQuestion[] = await prisma.userAnswer.findMany({
     where: {
       userId: user.id,
       isCorrect: false,
@@ -27,7 +32,9 @@ export default async function ReviewPage() {
     },
   });
 
-  const questions = wrongAnswers.map((answer) => answer.question);
+  const questions: PracticeQuestionData[] = wrongAnswers.map(
+    (answer) => answer.question,
+  );
 
   return (
     <div className="space-y-5 sm:space-y-6">

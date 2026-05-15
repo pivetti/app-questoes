@@ -25,6 +25,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+input,
+select,
+textarea {
+  color: #0f172a;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #64748b;
+}
+
+html.dark body {
+  background: #020617;
+  color: #e2e8f0;
+}
+
 .dark .bg-white,
 .dark .bg-white\/95 {
   background-color: rgb(15 23 42 / 0.95);
@@ -59,6 +75,15 @@ body {
 .dark .text-slate-700,
 .dark .text-slate-600 {
   color: #cbd5e1;
+}
+
+.dark .text-slate-950.text-inherit,
+.dark .text-slate-900.text-inherit,
+.dark .text-slate-800.text-inherit,
+.dark .text-slate-700.text-inherit,
+.dark .text-slate-600.text-inherit,
+.dark .text-inherit {
+  color: inherit;
 }
 
 .dark .text-slate-500 {

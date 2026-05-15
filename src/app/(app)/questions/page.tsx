@@ -13,11 +13,27 @@ type QuestionsPageProps = {
   }>;
 };
 
+type QuestionListItem = {
+  id: string;
+  statement: string;
+  discipline: string;
+  subject: string;
+  board: string;
+  year: number;
+  alternatives: {
+    option: string;
+    isCorrect: boolean;
+  }[];
+  _count: {
+    answers: number;
+  };
+};
+
 export default async function QuestionsPage({ searchParams }: QuestionsPageProps) {
   await requireUser();
   const params = await searchParams;
   const filters = await getQuestionFilters();
-  const questions = await prisma.question.findMany({
+  const questions: QuestionListItem[] = await prisma.question.findMany({
     where: {
       discipline: params.discipline || undefined,
       subject: params.subject || undefined,

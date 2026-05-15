@@ -9,17 +9,19 @@ type Alternative = {
   text: string;
 };
 
+export type PracticeQuestionData = {
+  id: string;
+  statement: string;
+  discipline: string;
+  subject: string;
+  board: string;
+  year: number;
+  imageUrl: string | null;
+  alternatives: Alternative[];
+};
+
 type PracticeQuestionProps = {
-  question: {
-    id: string;
-    statement: string;
-    discipline: string;
-    subject: string;
-    board: string;
-    year: number;
-    imageUrl: string | null;
-    alternatives: Alternative[];
-  };
+  question: PracticeQuestionData;
 };
 
 type Result = {
@@ -56,8 +58,8 @@ export function PracticeQuestion({ question }: PracticeQuestionProps) {
   function getOptionClass(option: string) {
     if (!result) {
       return selectedOption === option
-        ? "border-emerald-500 bg-emerald-50"
-        : "border-slate-200 bg-white hover:border-slate-300";
+        ? "border-emerald-500 bg-emerald-50 text-slate-950"
+        : "border-slate-200 bg-white text-slate-900 hover:border-slate-300";
     }
 
     if (result.correctOption === option) {
@@ -68,7 +70,7 @@ export function PracticeQuestion({ question }: PracticeQuestionProps) {
       return "border-red-500 bg-red-50 text-red-950";
     }
 
-    return "border-slate-200 bg-white opacity-75";
+    return "border-slate-200 bg-white text-slate-700 opacity-75";
   }
 
   return (
@@ -114,8 +116,8 @@ export function PracticeQuestion({ question }: PracticeQuestionProps) {
               }}
               className="mt-1 h-4 w-4 accent-emerald-600"
             />
-            <span className="font-semibold">{alternative.option}</span>
-            <span className="text-sm leading-6">{alternative.text}</span>
+            <span className="font-semibold text-inherit">{alternative.option}</span>
+            <span className="text-sm leading-6 text-inherit">{alternative.text}</span>
           </label>
         ))}
 

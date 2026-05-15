@@ -60,15 +60,17 @@ export function AuthForm({ mode, action }: AuthFormProps) {
         {isRegister ? "Criar conta" : "Entrar"}
       </FormSubmit>
 
-      <p className="text-center text-sm text-slate-600">
-        {isRegister ? "Ja tem conta?" : "Ainda nao tem conta?"}{" "}
-        <Link
-          href={isRegister ? "/login" : "/register"}
-          className="font-semibold text-emerald-700 hover:text-emerald-800"
-        >
-          {isRegister ? "Entrar" : "Cadastrar"}
-        </Link>
-      </p>
+      {isRegister ? (
+        <p className="text-center text-sm text-slate-600">
+          Ja tem conta?{" "}
+          <Link
+            href="/login"
+            className="font-semibold text-emerald-700 hover:text-emerald-800"
+          >
+            Entrar
+          </Link>
+        </p>
+      ) : null}
     </form>
   );
 }

@@ -3,40 +3,18 @@
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { createSession, destroySession } from "@/lib/session";
-import { hashPassword, verifyPassword } from "@/lib/password";
+import { verifyPassword } from "@/lib/password";
 import { FormState, formatZodError } from "@/lib/form";
-import { loginSchema, registerSchema } from "@/lib/validations";
+import { loginSchema } from "@/lib/validations";
 
 export async function registerAction(
-  _state: FormState,
+  state: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  const parsed = registerSchema.safeParse(Object.fromEntries(formData));
+  void state;
+  void formData;
 
-  if (!parsed.success) {
-    return { error: formatZodError(parsed.error) };
-  }
-
-  const existingUser = await prisma.user.findUnique({
-    where: { email: parsed.data.email },
-    select: { id: true },
-  });
-
-  if (existingUser) {
-    return { error: "Ja existe uma conta com esse e-mail." };
-  }
-
-  const user = await prisma.user.create({
-    data: {
-      name: parsed.data.name || null,
-      email: parsed.data.email,
-      passwordHash: await hashPassword(parsed.data.password),
-    },
-    select: { id: true },
-  });
-
-  await createSession(user.id);
-  redirect("/dashboard");
+  return { error: "Cadastro desativado no momento." };
 }
 
 export async function loginAction(

@@ -1,4 +1,5 @@
 import { PracticeQuestion } from "@/components/practice-question";
+import type { PracticeQuestionData } from "@/components/practice-question";
 import { prisma } from "@/lib/prisma";
 import { getQuestionFilters } from "@/lib/queries";
 import { requireUser } from "@/lib/session";
@@ -16,7 +17,7 @@ export default async function PracticePage({ searchParams }: PracticePageProps) 
   await requireUser();
   const params = await searchParams;
   const filters = await getQuestionFilters();
-  const questions = await prisma.question.findMany({
+  const questions: PracticeQuestionData[] = await prisma.question.findMany({
     where: {
       discipline: params.discipline || undefined,
       subject: params.subject || undefined,
